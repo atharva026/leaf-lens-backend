@@ -5,7 +5,7 @@ LeafLens is a FastAPI service for plant and crop image analysis. It validates an
 ## Features
 
 - Crop disease and health analysis from JPEG, PNG, and WebP images
-- OpenAI, Google Gemini, and Groq provider integrations
+- OpenAI and Google Gemini(google_genai) provider integrations
 - Provider/model discovery and connection checks
 - Structured responses for safety gating, severity, diseases, treatments, and notes
 - Redis-backed, IP-based rate limiting
@@ -71,8 +71,7 @@ GET /api/v1/ai/providers/
 The currently configured providers are:
 
 - `openai`: `gpt-5.5`, `gpt-5.4`, `gpt-5.4-mini`
-- `gemini`: `gemini-3.7-flash`, `gemini-3.6-flash`, `gemini-3.5-flash`, `gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`, `gemini-3-flash`, `gemini-2.5-pro`, `gemini-2.5-flash`
-- `groq`: `qwen/qwen3.6-27b`
+- `google_genai`: `gemini-3.7-flash`, `gemini-3.6-flash`, `gemini-3.5-flash`, `gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`, `gemini-3-flash`, `gemini-2.5-pro`, `gemini-2.5-flash`
 
 ### Test a provider connection
 
@@ -99,7 +98,7 @@ Content-Type: multipart/form-data
 Required form fields:
 
 - `file`: JPEG, PNG, or WebP image
-- `provider`: `openai`, `gemini`, or `groq`
+- `provider`: `openai` or `google_genai`
 - `model`: a model returned by the provider discovery endpoint
 - `api_key`: the provider API key
 

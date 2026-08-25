@@ -7,11 +7,11 @@ from langchain_core.messages import HumanMessage
 
 from src.app.core.config import config
 from src.app.core.logging import get_logger
-from src.app.core.prompts.crop_analysis import CROP_ANALYSIS_PROMPT
+from src.app.core.prompts.crop_analysis import CROP_ANALYSIS_PROMPT, OUTPUT_FORMAT
 from src.app.core.exceptions import InvalidFileTypeException, UnsupportedProviderException
 from src.app.analyze.schemas import CropHealthResponse
 from src.app.ai_providers.service import AIProvidersService
-from app.utils.ai import create_chat_model, invoke_chat_model
+from src.app.utils.ai import create_chat_model, invoke_chat_model
 
 logger = get_logger(__name__)
 
@@ -122,7 +122,7 @@ class AnalyzeService:
     ) -> dict:
         """
         Analyse image content using a user-selected LangChain chat model
-        (OpenAI / Gemini / Groq) for disease detection.
+        (OpenAI / Google Gemini(google_genai)) for disease detection.
         """
         # Keeping validation inside analyse_image too as protection for direct callers.
         # Validate the API key format - Basic validation

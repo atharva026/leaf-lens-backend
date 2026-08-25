@@ -3,14 +3,12 @@ from pydantic import BaseModel, Field
 
 ModelProvider = Literal[
     "openai",
-    "gemini",
-    "groq",
+    "google_genai",
 ]
 
 class SupportedModels(BaseModel):
     openai: list[str] = Field(default_factory=list)
-    gemini: list[str] = Field(default_factory=list)
-    groq: list[str] = Field(default_factory=list)
+    google_genai: list[str] = Field(default_factory=list)
 
 class ModelProviderResponse(BaseModel):
     provider: ModelProvider

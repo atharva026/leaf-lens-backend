@@ -25,7 +25,7 @@ router = APIRouter(
 )
 async def analyse_image(
     file: UploadFile = File(..., description="Image file to be analyzed"),
-    provider: str = Form(..., description="AI Provider e.g. OpenAI / Gemini / Groq"),
+    provider: str = Form(..., description="AI Provider e.g. OpenAI / Google Gemini(google_genai)"),
     model: str = Form(..., description="model e.g. gpt-5.5, gemini-3.5, qwen"),
     api_key: str = Form(..., description="AI Provider API key"),
     analyze_service: AnalyzeService = Depends(get_analyze_service)

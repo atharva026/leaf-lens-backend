@@ -1,7 +1,7 @@
 from langchain_core.messages import HumanMessage
 
 from src.app.ai_providers.schemas import SupportedModels
-from app.utils.ai import create_chat_model, invoke_chat_model
+from src.app.utils.ai import create_chat_model, invoke_chat_model
 from src.app.core.exceptions import InvalidAPIKeyException, UnsupportedProviderException
 
 class AIProvidersService:

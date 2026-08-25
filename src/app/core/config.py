@@ -1,4 +1,3 @@
-import os
 from functools import lru_cache
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import BaseModel, Field
@@ -32,7 +31,7 @@ class Settings(BaseSettings):
     MAX_IMAGE_DIMENSION_LIMIT: int = 8000    # reject absurdly large images outright
 
     MAX_FILE_SIZE_MB: int = 5
-    AI_REQUEST_TIMEOUT_SECONDS: int = 30
+    AI_REQUEST_TIMEOUT_SECONDS: int = 60
 
     # Logger
     DEBUG: bool

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter
 
 from src.app.common.response.response_groups import TOO_MANY_REQUESTS
 from src.app.analyze.routes import router as analyze_router

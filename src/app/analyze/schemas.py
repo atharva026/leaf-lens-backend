@@ -2,13 +2,6 @@ from enum import Enum
 from typing import List, Optional
 from pydantic import BaseModel, Field
 
-class AnalyzeImageResponse(BaseModel):
-    file_name: str
-    provider: str
-    model: str
-    content_type: str
-    result: dict
-
 class Severity(str, Enum):
     HEALTHY = "healthy"
     MILD = "mild"
@@ -21,6 +14,7 @@ class TreatmentType(str, Enum):
     ORGANIC = "organic"
     CHEMICAL = "chemical"
     PREVENTIVE = "preventive"
+    GENERAL_CARE = "general_care"
 
 class Urgency(str, Enum):
     IMMEDIATE = "immediate"
@@ -71,3 +65,10 @@ class CropHealthResponse(BaseModel):
     treatments: List[Treatment] = Field(default_factory=list, max_length=10, description="List of recommended treatments")
     overall_health: str = Field(None, max_length=300, description="One sentence summary of plant health")
     additional_notes: Optional[str] = Field(None, max_length=500, description="Other observations or recommendations")
+
+class AnalyzeImageResponse(BaseModel):
+    file_name: str
+    provider: str
+    model: str
+    content_type: str
+    result: CropHealthResponse

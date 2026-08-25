@@ -6,7 +6,7 @@ SUPPORTED_MODELS = SupportedModels(
         "gpt-5.4",
         "gpt-5.4-mini",
     ],
-    gemini=[
+    google_genai=[
         "gemini-3.7-flash",
         "gemini-3.6-flash",
         "gemini-3.5-flash",
@@ -15,8 +15,5 @@ SUPPORTED_MODELS = SupportedModels(
         "gemini-3-flash",
         "gemini-2.5-pro",
         "gemini-2.5-flash",
-    ],
-    groq=[
-        "qwen/qwen3.6-27b",
     ],
 )

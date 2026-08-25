@@ -8,7 +8,7 @@ openapi_tags = [
         "description": "Endpoints for analyzing images and extracting information using AI."
     },
     {
-        "name": "Ai Providers",
+        "name": "AI Providers",
         "description": "Endpoints to get supported providers and models by app and test connections."
     }   
 ]
