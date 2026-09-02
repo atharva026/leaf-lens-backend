@@ -7,7 +7,7 @@ from src.app.common.response.response_groups import (
 )
 from src.app.ai_providers.dependencies import get_ai_providers_service
 from src.app.ai_providers.schemas import (
-    ModelProviderResponse,
+    Provider,
     TestConnectionRequest, 
     TestConnectionResponse
 )
@@ -23,7 +23,7 @@ router = APIRouter(
 
 @router.get(
     "/",
-    response_model=list[ModelProviderResponse],
+    response_model=list[Provider],
     status_code = status.HTTP_200_OK,
     responses = {
         **INTERNAL_SERVER_ERROR
@@ -31,23 +31,18 @@ router = APIRouter(
 )
 async def get_model_providers(
     ai_providers_service: AIProvidersService = Depends(get_ai_providers_service)
-) -> list[ModelProviderResponse]:
+) -> list[Provider]:
     """
     Get a list of supported AI providers and models.
     """
-    supported_models = ai_providers_service.get_supported_models()
+    supported_providers_models = ai_providers_service.get_supported_providers_models()
 
-    return [
-        ModelProviderResponse(
-            provider=provider,
-            models=models,
-        )   
-        for provider, models in supported_models.items()
-    ]
+    return supported_providers_models
 
 @router.post(
     "/test-connection",
     status_code = status.HTTP_200_OK,
+    response_model = TestConnectionResponse,
     responses = {
         **INVALID_API_KEY_OR_UNSUPPORTED_PROVIDER,
         **AI_REQUEST_TIMEOUT,

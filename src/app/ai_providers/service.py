@@ -1,6 +1,6 @@
 from langchain_core.messages import HumanMessage
 
-from src.app.ai_providers.schemas import SupportedModels
+from src.app.ai_providers.schemas import Provider
 from src.app.utils.ai import create_chat_model, invoke_chat_model
 from src.app.core.exceptions import InvalidAPIKeyException, UnsupportedProviderException
 
@@ -9,14 +9,14 @@ class AIProvidersService:
     Service for managing AI providers and their supported models.
     """
 
-    def __init__(self, supported_models):
-        self.supported_models: SupportedModels = supported_models
+    def __init__(self, supported_providers_models: list[Provider]):
+        self.supported_providers_models = supported_providers_models
 
-    def get_supported_models(self) -> SupportedModels:
+    def get_supported_providers_models(self) -> list[Provider]:
         """
         Return a dictionary of supported models grouped by provider.
         """
-        return self.supported_models.model_dump()
+        return self.supported_providers_models
 
     def validate_api_key(self, api_key: str) -> None:
         """
@@ -33,12 +33,24 @@ class AIProvidersService:
         Validate that the given provider and model are supported.
         Raises UnsupportedProviderException if not supported.
         """
-        if provider not in self.supported_models.model_dump():
+        provider_config = next(
+            (
+                item
+                for item in self.supported_providers_models
+                if item.model_dump().get("id") == provider
+            ),
+            None,
+        )
+        if provider_config is None:
             raise UnsupportedProviderException(
                 message=f"Provider '{provider}' is not supported."
             )
 
-        if model not in self.supported_models.model_dump().get(provider, []):
+        model_supported = any(
+            item.get("id") == model
+            for item in provider_config.model_dump().get("models", [])
+        )
+        if not model_supported:
             raise UnsupportedProviderException(
                 message=f"Model '{model}' is not supported for provider '{provider}'."
             )

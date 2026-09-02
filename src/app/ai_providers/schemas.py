@@ -6,13 +6,19 @@ ModelProvider = Literal[
     "google_genai",
 ]
 
-class SupportedModels(BaseModel):
-    openai: list[str] = Field(default_factory=list)
-    google_genai: list[str] = Field(default_factory=list)
+class ProviderModel(BaseModel): 
+    id: str 
+    label: str 
+    note: str | None = None
 
-class ModelProviderResponse(BaseModel):
-    provider: ModelProvider
-    models: list[str]
+class Provider(BaseModel): 
+    id: ModelProvider 
+    label: str 
+    base_url: str 
+    key_prefix: str 
+    key_hint: str 
+    docs_url: str 
+    models: list[ProviderModel] = Field(default_factory=list)
 
 class TestConnectionRequest(BaseModel):
     api_key: str
