@@ -47,6 +47,7 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS: list = [
         "http://localhost",
         "http://localhost:3000",
+        "https://leaflens.vercel.app",
     ]
     
     model_config = SettingsConfigDict(
