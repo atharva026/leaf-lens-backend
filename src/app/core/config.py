@@ -44,11 +44,17 @@ class Settings(BaseSettings):
     FRONTEND_URL: str = "http://localhost:3000"
 
     # CORS
-    ALLOWED_ORIGINS: list = [
-        "http://localhost",
-        "http://localhost:3000",
-        "https://leaflens.vercel.app",
-    ]
+    @property
+    def ALLOWED_ORIGINS(self) -> list[str]:
+        if self.ENVIRONMENT == "prod":
+            return [
+                "https://frontend-leaf-lens.vercel.app",
+            ]
+
+        return [
+            "http://localhost",
+            "http://localhost:3000",
+        ]
     
     model_config = SettingsConfigDict(
         env_file=".env",
